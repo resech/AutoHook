@@ -1,6 +1,7 @@
 using AutoHook.Classes;
 using AutoHook.Data;
 using AutoHook.Utils;
+using Dalamud.Logging;
 using FFXIVClientStructs.FFXIV.Client.Game;
 
 namespace AutoHook.Configurations;
@@ -13,6 +14,7 @@ public class AutoCastsConfig
     public bool EnableMooch = false;
     public bool EnableMooch2 = false;
     public bool OnlyMoochIntuition = false;
+    public bool OnlyMoochSurfaceSlap = false;
 
     public bool EnablePatience = false;
     public bool EnableMakeshiftPatience = false;
@@ -24,6 +26,10 @@ public class AutoCastsConfig
     public AutoPatienceI AutoPatienceI = new();
 
     public AutoPatienceII AutoPatienceII = new();
+
+    public AutoCastGP AutoCastGP = new();
+
+    public AutoMoochGP AutoMoochGP = new();
 
     public AutoChum AutoChum = new();
 
@@ -104,10 +110,10 @@ public class AutoCastsConfig
         if (cordial != null && cordial.IsAvailableToCast(baitConfig))
             return new(cordial.ID, cordial.ActionType);
 
-        if (UseMooch(out uint idMooch))
+        if (UseMooch(out uint idMooch) && (!AutoMoochGP.Enabled || AutoMoochGP.IsAvailableToCast(baitConfig)))
             return new(idMooch, ActionType.Spell);
 
-        if (EnableAutoCast)
+        if (EnableAutoCast && (!AutoCastGP.Enabled || AutoCastGP.IsAvailableToCast(baitConfig)))
             return new(IDs.Actions.Cast, ActionType.Spell);
 
         return null;
@@ -120,6 +126,7 @@ public class AutoCastsConfig
         bool useAutoMooch = false;
         bool useAutoMooch2 = false;
         bool onlyMoochIntuition = false;
+        bool onlyMoochSerfaceSlap = false;
 
         // 
         if (BaitConfig == null || BaitConfig?.BaitName == "DefaultCast" || BaitConfig?.BaitName == "DefaultMooch")
@@ -127,6 +134,7 @@ public class AutoCastsConfig
             useAutoMooch = EnableMooch;
             useAutoMooch2 = EnableMooch2;
             onlyMoochIntuition = OnlyMoochIntuition;
+            onlyMoochSerfaceSlap = OnlyMoochSurfaceSlap;
 
         }
         else
@@ -134,12 +142,16 @@ public class AutoCastsConfig
             useAutoMooch = BaitConfig?.UseAutoMooch ?? false;
             useAutoMooch2 = BaitConfig?.UseAutoMooch2 ?? false;
             onlyMoochIntuition = BaitConfig?.OnlyMoochIntuition ?? false;
+            onlyMoochSerfaceSlap = BaitConfig?.OnlyMoochSurfaceslap ?? false;
         }
 
         if (useAutoMooch)
         {
 
             if (onlyMoochIntuition && !PlayerResources.HasStatus(IDs.Status.IdenticalCast))
+                return false;
+
+            if (onlyMoochSerfaceSlap && !PlayerResources.HasStatus(IDs.Status.SurfaceSlap))
                 return false;
 
             if (PlayerResources.ActionAvailable(IDs.Actions.Mooch))

@@ -61,6 +61,36 @@ public sealed class AutoThaliaksFavor : BaseActionCast
 }
 #endregion
 
+#region AutoCastGP
+public sealed class AutoCastGP : BaseActionCast
+{
+    public AutoCastGP() : base("Cast", IDs.Actions.Cast, ActionType.Spell)
+    {
+
+    }
+
+    public override bool CastCondition()
+    {
+        return true;
+    }
+}
+#endregion
+
+#region AutoMoochGP
+public sealed class AutoMoochGP : BaseActionCast
+{
+    public AutoMoochGP() : base("Mooch (I or II)", IDs.Actions.Cast, ActionType.Spell)
+    {
+
+    }
+
+    public override bool CastCondition()
+    {
+        return true;
+    }
+}
+#endregion
+
 #region AutoChum
 public sealed class AutoChum : BaseActionCast
 {
@@ -107,6 +137,9 @@ public sealed class AutoIdenticalCast : BaseActionCast
 
     public override bool CastCondition()
     {
+        if (_baitConfig?.UseIdenticalCastOnlyPatience == true && !PlayerResources.HasStatus(IDs.Status.Patience))
+            return false;
+
         return _baitConfig?.UseIdenticalCast ?? false;
     }
 }

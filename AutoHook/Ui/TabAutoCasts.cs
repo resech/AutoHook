@@ -73,11 +73,17 @@ internal class TabAutoCasts : TabBaseConfig
             DrawExtraOptionsAutoCast();
             ImGui.Unindent();
         }
+        
     }
 
     private void DrawExtraOptionsAutoCast()
     {
-
+        var enabled = cfg.AutoCastGP.Enabled;
+        if (DrawUtil.Checkbox("Auto Cast based on GP", ref enabled, "Cast will only be performed if GP conditions are met."))
+        {
+            cfg.AutoCastGP.Enabled = enabled;
+            Service.Configuration.Save();
+        }
     }
 
     private void DrawAutoMooch()
@@ -97,12 +103,24 @@ internal class TabAutoCasts : TabBaseConfig
 
     private void DrawExtraOptionsAutoMooch()
     {
+        var enabled = cfg.AutoMoochGP.Enabled;
+        if (ImGui.Checkbox("Auto Mooch (I or II) based on GP conditions", ref enabled))
+        {
+            cfg.AutoMoochGP.Enabled = enabled;
+            Service.Configuration.Save();
+        }
+        
         if (ImGui.Checkbox("Use Mooch II", ref cfg.EnableMooch2))
         {
             Service.Configuration.Save();
         }
 
         if (ImGui.Checkbox("Only use when Fisher's Intution is active##fi_mooch", ref cfg.OnlyMoochIntuition))
+        {
+            Service.Configuration.Save();
+        }
+
+        if (ImGui.Checkbox("Only use when Surface Slap is active##ss_mooch", ref cfg.OnlyMoochSurfaceSlap))
         {
             Service.Configuration.Save();
         }

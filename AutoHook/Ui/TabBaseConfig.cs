@@ -55,6 +55,11 @@ abstract class TabBaseConfig : IDisposable
         if (enabled)
         {
             ImGui.Indent();
+            if (ImGui.RadioButton($"Hook###{TabName}{hook}0", type == HookType.Normal))
+            {
+                type = HookType.Normal;
+                Service.Configuration.Save();
+            }
             if (ImGui.RadioButton($"Precision Hookset###{TabName}{hook}1", type == HookType.Precision))
             {
                 type = HookType.Precision;
@@ -271,6 +276,28 @@ abstract class TabBaseConfig : IDisposable
         }
     }
 
+    public void DrawSurfaceSlapConfig(BaitConfig cfg)
+    {
+        if (ImGui.Button("Surface Slap Settings###SurfaceSlap"))
+        {
+            ImGui.OpenPopup("surface_slap_settings");
+        }
+
+        if (ImGui.BeginPopup("surface_slap_settings"))
+        {
+            ImGui.TextColored(ImGuiColors.DalamudYellow, "Surface Slap Settings");
+            ImGui.Spacing();
+            Utils.DrawUtil.Checkbox("Enable", ref cfg.UseCustomSurfaceSlapHook, "Enable Custom Hooks when Surface Slap is detected");
+            ImGui.Separator();
+
+            DrawSelectTugs(StrHookWeak, ref cfg.HookWeakSurfaceSlapEnabled, ref cfg.HookTypeWeakSurfaceSlap);
+            DrawSelectTugs(StrHookStrong, ref cfg.HookStrongSurfaceSlapEnabled, ref cfg.HookTypeStrongSurfaceSlap);
+            DrawSelectTugs(StrHookLegendary, ref cfg.HookLegendarySurfaceSlapEnabled, ref cfg.HookTypeLegendarySurfaceSlap);
+
+            ImGui.EndPopup();
+        }
+    }
+
     public void DrawAutoMooch(BaitConfig cfg)
     {
 
@@ -328,9 +355,20 @@ abstract class TabBaseConfig : IDisposable
                 cfg.UseIdenticalCast = false;
             }
 
-            if (DrawUtil.Checkbox("Use Identical Cast", ref cfg.UseIdenticalCast, "Overrides Surface Slap"))
+            var enabled = cfg.UseIdenticalCast;
+            if (DrawUtil.Checkbox("Use Identical Cast", ref enabled, "Overrides Surface Slap"))
             {
+                cfg.UseIdenticalCast = enabled;
                 cfg.UseSurfaceSlap = false;
+            }
+
+            if (enabled)
+            {
+                ImGui.Indent();
+                if (DrawUtil.Checkbox("Only use when Patience is up", ref cfg.UseIdenticalCastOnlyPatience))
+                {
+                    Service.Configuration.Save();
+                }
             }
 
             ImGui.EndPopup();

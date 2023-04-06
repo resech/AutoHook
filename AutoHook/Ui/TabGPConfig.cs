@@ -18,6 +18,8 @@ internal class TabGPConfig : TabBaseConfig
 
     private static readonly List<BaseActionCast> _actionsAvailable = new()
             {
+                cfg.AutoCastGP,
+                cfg.AutoMoochGP,
                 cfg.AutoChum,
                 cfg.AutoCordial,
                 cfg.AutoHICordial,

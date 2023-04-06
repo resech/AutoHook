@@ -337,6 +337,8 @@ class TabPresets : TabBaseConfig
                         ImGui.TableNextRow();
                         ImGui.TableNextColumn();
                         DrawStopAfter(bait);
+                        ImGui.TableNextColumn();
+                        DrawSurfaceSlapConfig(bait);
 
                         ImGui.EndTable();
                     }

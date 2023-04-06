@@ -88,6 +88,7 @@ internal class TabGeneral : TabBaseConfig
         DrawChumMinMaxTime(Service.Configuration.DefaultCastConfig);
         DrawHookCheckboxes(Service.Configuration.DefaultCastConfig);
         DrawFishersIntuitionConfig(Service.Configuration.DefaultCastConfig);
+        DrawSurfaceSlapConfig(Service.Configuration.DefaultCastConfig);
         DrawCheckBoxDoubleTripleHook(Service.Configuration.DefaultCastConfig);
 
         ImGui.Unindent();
@@ -107,6 +108,7 @@ internal class TabGeneral : TabBaseConfig
         DrawChumMinMaxTime(Service.Configuration.DefaultMoochConfig);
         DrawHookCheckboxes(Service.Configuration.DefaultMoochConfig);
         DrawFishersIntuitionConfig(Service.Configuration.DefaultMoochConfig);
+        DrawSurfaceSlapConfig(Service.Configuration.DefaultMoochConfig);
         DrawCheckBoxDoubleTripleHook(Service.Configuration.DefaultMoochConfig);
 
         ImGui.Unindent();

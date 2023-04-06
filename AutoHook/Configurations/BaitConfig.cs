@@ -14,30 +14,39 @@ public class BaitConfig
 
     public bool HookWeakEnabled = true;
     public bool HookWeakIntuitionEnabled = true;
+    public bool HookWeakSurfaceSlapEnabled = true;
     public bool HookWeakDHTHEnabled = true;
     public HookType HookTypeWeak = HookType.Precision;
     public HookType HookTypeWeakIntuition = HookType.Precision;
+    public HookType HookTypeWeakSurfaceSlap = HookType.Precision;
 
     public bool HookStrongEnabled = true;
     public bool HookStrongIntuitionEnabled = true;
+    public bool HookStrongSurfaceSlapEnabled = true;
     public bool HookStrongDHTHEnabled = true;
     public HookType HookTypeStrong = HookType.Powerful;
     public HookType HookTypeStrongIntuition = HookType.Powerful;
+    public HookType HookTypeStrongSurfaceSlap = HookType.Powerful;
 
     public bool HookLegendaryEnabled = true;
     public bool HookLegendaryIntuitionEnabled = true;
+    public bool HookLegendarySurfaceSlapEnabled = true;
     public bool HookLegendaryDHTHEnabled = true;
     public HookType HookTypeLegendary = HookType.Powerful;
     public HookType HookTypeLegendaryIntuition = HookType.Powerful;
+    public HookType HookTypeLegendarySurfaceSlap = HookType.Powerful;
 
     public bool UseCustomIntuitionHook = false;
+    public bool UseCustomSurfaceSlapHook = false;
 
     public bool UseAutoMooch = true;
     public bool UseAutoMooch2 = false;
     public bool OnlyMoochIntuition = false;
+    public bool OnlyMoochSurfaceslap = false;
 
     public bool UseSurfaceSlap = false;
     public bool UseIdenticalCast = false;
+    public bool UseIdenticalCastOnlyPatience = false;
 
     public bool UseDoubleHook = false;
     public bool UseTripleHook = false;
@@ -63,10 +72,16 @@ public class BaitConfig
     public HookType? GetHook(BiteType bite)
     {
         bool hasIntuition = PlayerResources.HasStatus(IDs.Status.FishersIntuition);
+        bool hasSurfaceSlap = PlayerResources.HasStatus(IDs.Status.SurfaceSlap);
 
         if (hasIntuition && UseCustomIntuitionHook)
         {
             if (!CheckHookIntuitionEnabled(bite))
+                return HookType.None;
+        }
+        else if (hasSurfaceSlap && UseCustomSurfaceSlapHook)
+        {
+            if (!CheckHookSurfaceSlapEnabled(bite))
                 return HookType.None;
         }
         else if (!CheckHookEnabled(bite))
@@ -86,6 +101,7 @@ public class BaitConfig
     public HookType? GetHookIgnoreEnable(BiteType bite)
     {
         bool hasIntuition = PlayerResources.HasStatus(IDs.Status.FishersIntuition);
+        bool hasSurfaceSlap = PlayerResources.HasStatus(IDs.Status.SurfaceSlap);
 
         var hook = GetDoubleTripleHook(bite);
 
@@ -94,6 +110,8 @@ public class BaitConfig
 
         if (hasIntuition)
             return GetIntuitionHook(bite);
+        else if (hasSurfaceSlap)
+            return GetSurfaceSlapHook(bite);
         else
             return GetPatienceHook(bite);
     }
@@ -108,6 +126,12 @@ public class BaitConfig
         bite == BiteType.Weak ? HookWeakIntuitionEnabled :
         bite == BiteType.Strong ? HookStrongIntuitionEnabled :
         bite == BiteType.Legendary ? HookLegendaryIntuitionEnabled :
+        false;
+
+    public bool CheckHookSurfaceSlapEnabled(BiteType bite) =>
+        bite == BiteType.Weak ? HookWeakSurfaceSlapEnabled :
+        bite == BiteType.Strong ? HookStrongSurfaceSlapEnabled :
+        bite == BiteType.Legendary ? HookLegendarySurfaceSlapEnabled :
         false;
 
     public bool CheckHookDHTHEnabled(BiteType bite) =>
@@ -130,6 +154,14 @@ public class BaitConfig
         BiteType.Weak => HookTypeWeakIntuition,
         BiteType.Strong => HookTypeStrongIntuition,
         BiteType.Legendary => HookTypeLegendaryIntuition,
+        _ => HookType.None,
+    };
+
+    private HookType GetSurfaceSlapHook(BiteType bite) => bite switch
+    {
+        BiteType.Weak => HookTypeWeakSurfaceSlap,
+        BiteType.Strong => HookTypeStrongSurfaceSlap,
+        BiteType.Legendary => HookTypeLegendarySurfaceSlap,
         _ => HookType.None,
     };
 

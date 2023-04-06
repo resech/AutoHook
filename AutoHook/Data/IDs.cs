@@ -41,6 +41,8 @@ namespace AutoHook.Data
             public const uint
             FishersIntuition = 568,
             IdenticalCast = 1804,
+            SurfaceSlap = 1803,
+            Patience = 764,
 
             AnglersFortune = 850,
 
