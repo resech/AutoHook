@@ -209,7 +209,7 @@ public class HookingManager : IDisposable
                 _lastStep == CatchSteps.FishCaught || _lastStep == CatchSteps.TimeOut))
         {
             UseAutoCasts();
-            if (PlayerResources.HasStatus(IDs.Status.Chum) && !PlayerResources.HasStatus(IDs.Status.Salvage) && Cfg.AutoCastsCfg.EnableAnimationSkip && _recastTimer.ElapsedMilliseconds > _lastTickMs + 100)
+            if (PlayerResources.HasStatus(IDs.Status.Chum) && !PlayerResources.HasStatus(IDs.Status.Salvage) && Cfg.AutoCastsCfg.EnableChumAnimationSkip && _recastTimer.ElapsedMilliseconds > _lastTickMs + 100)
             {
                 _lastTickMs = _recastTimer.ElapsedMilliseconds;
                 PlayerResources.CastActionNoDelay((IDs.Actions.Salvage)); 
@@ -219,19 +219,16 @@ public class HookingManager : IDisposable
 
         if (state == FishingState.Waiting2)
         {
-            if (Cfg.AutoCastsCfg.EnableAnimationSkip)
+            if (PlayerResources.HasStatus(IDs.Status.Salvage) && Cfg.AutoCastsCfg.EnableChumAnimationSkip)
             {
-                if (PlayerResources.HasStatus(IDs.Status.Salvage))
-                {
-                    PlayerResources.CastActionDelayed(IDs.Actions.Salvage, ActionType.Action);
-                }
-
-                if (PlayerResources.HasStatus(IDs.Status.CollectorsGlove) && !Cfg.AutoCastsCfg.KeepCollectable)
-                {
-                    PlayerResources.CastActionDelayed(IDs.Actions.Collect, ActionType.Action);
-                }
-
+                PlayerResources.CastActionDelayed(IDs.Actions.Salvage, ActionType.Action);
             }
+
+            if (PlayerResources.HasStatus(IDs.Status.CollectorsGlove) && Cfg.AutoCastsCfg.EnableAnimationSkip && !Cfg.AutoCastsCfg.KeepCollectable)
+            {
+                PlayerResources.CastActionDelayed(IDs.Actions.Collect, ActionType.Action);
+            }
+
             //CheckState();
         
             CheckMaxTimeLimit();
@@ -255,7 +252,7 @@ public class HookingManager : IDisposable
                 break;
             case FishingState.Bite:
                 if (_lastStep != CatchSteps.FishBit) OnBite();
-                if (PlayerResources.HasStatus(IDs.Status.CollectorsGlove))
+                if (PlayerResources.HasStatus(IDs.Status.CollectorsGlove) && Cfg.AutoCastsCfg.EnableAnimationSkip)
                 {
                     PlayerResources.CastActionDelayed(IDs.Actions.Collect, ActionType.Action);
                 }

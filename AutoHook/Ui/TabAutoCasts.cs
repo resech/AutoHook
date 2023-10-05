@@ -55,6 +55,7 @@ internal class TabAutoCasts : TabBaseConfig
             DrawPrizeCatch();
             DrawThaliaksFavor();
             DrawAnimationSkip();
+            DrawChumAnimationSkip();
         }
     }
 
@@ -291,8 +292,16 @@ internal class TabAutoCasts : TabBaseConfig
     {
         if (DrawUtil.Checkbox(UIStrings.Keep_Collectable, ref Cfg.KeepCollectable, UIStrings.Keep_Collectable_desc))
         { }
-        //if (DrawUtil.Checkbox(UIStrings.Salvage, ref Cfg.AutoSalvage, UIStrings.Salvage_Skip))
-        //{ }
+    }
+
+    private void DrawChumAnimationSkip()
+    {
+        var enabled = Cfg.EnableChumAnimationSkip;
+        if (DrawUtil.Checkbox(UIStrings.ChumAnimCancel, ref enabled, UIStrings.ChumAnimCancelDesc))
+        {
+            Cfg.EnableChumAnimationSkip = enabled;
+            Service.Configuration.Save();
+        }
     }
 
 

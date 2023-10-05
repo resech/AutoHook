@@ -664,6 +664,12 @@ If you want to Auto Mooch only a specific fish and ignore others, disable this o
   <data name="BiteAnimCancelDesc" xml:space="preserve">
     <value>Will cancel the reeling animation after a missed bite using collector's glove</value>
   </data>
+  <data name="ChumAnimCancel" xml:space="preserve">
+    <value>Chum animation cancel</value>
+  </data>
+  <data name="ChumAnimCancelDesc" xml:space="preserve">
+    <value>Will attempt to skip chum animation using salvage.</value>
+  </data>
   <data name="Keep_Collectable" xml:space="preserve">
     <value>Keep Collectables</value>
   </data>

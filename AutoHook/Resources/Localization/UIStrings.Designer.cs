@@ -352,6 +352,24 @@ namespace AutoHook.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chum animation cancel.
+        /// </summary>
+        internal static string ChumAnimCancel {
+            get {
+                return ResourceManager.GetString("ChumAnimCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Will attempt to skip chum animation using salvage..
+        /// </summary>
+        internal static string ChumAnimCancelDesc {
+            get {
+                return ResourceManager.GetString("ChumAnimCancelDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chum Timer.
         /// </summary>
         internal static string ChumTimer {
