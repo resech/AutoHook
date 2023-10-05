@@ -658,4 +658,16 @@ If you want to Auto Mooch only a specific fish and ignore others, disable this o
   <data name="TabGeneral_DrawHeader_Localization_Help" xml:space="preserve">
     <value>Help with the plugin localization (Crowdin)</value>
   </data>
+  <data name="BiteAnimCancel" xml:space="preserve">
+    <value>Bite reel animation cancel</value>
+  </data>
+  <data name="BiteAnimCancelDesc" xml:space="preserve">
+    <value>Will cancel the reeling animation after a missed bite using collector's glove</value>
+  </data>
+  <data name="Salvage" xml:space="preserve">
+    <value>Salvage</value>
+  </data>
+  <data name="Salvage_Skip" xml:space="preserve">
+    <value>Salvage chum animation skip</value>
+  </data>
 </root>

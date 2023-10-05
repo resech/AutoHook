@@ -17,6 +17,9 @@ public class AutoCastsConfig
     public bool EnablePatience = false;
     public bool EnableMakeshiftPatience = false;
 
+    public bool EnableAnimationSkip = false;
+    public bool EnableChumAnimationSkip = false;
+
     public bool DontCancelMooch = true;
 
     public uint SelectedPatienceID = IDs.Actions.Patience2; // Default to Patience2
@@ -26,6 +29,8 @@ public class AutoCastsConfig
     public AutoPatienceII AutoPatienceII = new();
 
     public AutoChum AutoChum = new();
+
+    //public AutoSalvage AutoSalvage = new();
 
     public AutoFishEyes AutoFishEyes = new();
 

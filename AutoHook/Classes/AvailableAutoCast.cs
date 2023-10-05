@@ -2,6 +2,7 @@
 using AutoHook.Utils;
 using FFXIVClientStructs.FFXIV.Client.Game;
 using AutoHook.Resources.Localization;
+using System.Threading;
 
 namespace AutoHook.Classes;
 
@@ -63,6 +64,7 @@ public sealed class AutoThaliaksFavor : BaseActionCast
 public sealed class AutoChum : BaseActionCast
 {
     public bool OnlyUseWithIntuition = false;
+    public bool AutoSalvage = false;
     public AutoChum() : base(UIStrings.Chum, IDs.Actions.Chum, ActionType.Action)
     {
         DoesCancelMooch = true;

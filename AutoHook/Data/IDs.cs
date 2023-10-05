@@ -30,6 +30,9 @@ namespace AutoHook.Data
             PrecisionHS = 4179,
             PowerfulHS = 4103,
 
+            Collect = 4101,
+            Salvage = 7910,
+
             FishEyes = 4105,
             Chum = 4104,
 
@@ -49,6 +52,10 @@ namespace AutoHook.Data
             PrizeCatch = 2780,
 
             NaturesBounty = 1171,
+            
+            CollectorsGlove = 805,
+            Salvage = 1172,
+
 
             Chum = 763,
 

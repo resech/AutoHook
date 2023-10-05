@@ -178,6 +178,10 @@ public class PlayerResources : IDisposable
                 {
                     ResetAutoCast();
                 }
+                if (id == IDs.Actions.Chum)
+                {
+                    CastActionDelayed(IDs.Actions.Salvage);
+                }
             }
 
         }

@@ -54,6 +54,7 @@ internal class TabAutoCasts : TabBaseConfig
             DrawPatience();
             DrawPrizeCatch();
             DrawThaliaksFavor();
+            DrawAnimationSkip();
         }
     }
 
@@ -266,7 +267,20 @@ internal class TabAutoCasts : TabBaseConfig
     {
         if (DrawUtil.Checkbox($"{UIStrings.OnlyUseWhenFisherSIntutionIsActive}##fi_chum", ref Cfg.AutoChum.OnlyUseWithIntuition))
         { }
+        //if (DrawUtil.Checkbox(UIStrings.Salvage, ref Cfg.AutoSalvage, UIStrings.Salvage_Skip))
+        //{ }
     }
+
+    private void DrawAnimationSkip()
+    {
+        var enabled = Cfg.EnableAnimationSkip;
+        if (DrawUtil.Checkbox(UIStrings.BiteAnimCancel, ref enabled, UIStrings.BiteAnimCancelDesc))
+        {
+            Cfg.EnableAnimationSkip = enabled;
+            Service.Configuration.Save();
+        }
+    }
+
 
     private void DrawFishEyes()
     {

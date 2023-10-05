@@ -11,6 +11,8 @@ using Dalamud.Logging;
 using AutoHook.Parser;
 using Dalamud.Plugin.Services;
 using Item = Lumina.Excel.GeneratedSheets.Item;
+using System.Threading;
+using FFXIVClientStructs.FFXIV.Client.Game;
 
 namespace AutoHook;
 
@@ -200,21 +202,48 @@ public class HookingManager : IDisposable
 
         //CheckState();
 
+        
+
         // FishBit in this case means that the fish was hooked, but it escaped. I might need to find a way to check if the fish was caught or not.
         if (_lastStep != CatchSteps.Quitting && state == FishingState.PoleReady && (_lastStep == CatchSteps.FishBit ||
                 _lastStep == CatchSteps.FishCaught || _lastStep == CatchSteps.TimeOut))
         {
             UseAutoCasts();
+            if (PlayerResources.HasStatus(IDs.Status.Chum) && !PlayerResources.HasStatus(IDs.Status.Salvage) && Cfg.AutoCastsCfg.EnableAnimationSkip && _recastTimer.ElapsedMilliseconds > _lastTickMs + 100)
+            {
+                _lastTickMs = _recastTimer.ElapsedMilliseconds;
+                PlayerResources.CastActionNoDelay((IDs.Actions.Salvage)); 
+            }
+                
         }
 
-        //CheckState();
         if (state == FishingState.Waiting2)
+        {
+            if (Cfg.AutoCastsCfg.EnableAnimationSkip)
+            {
+                if (PlayerResources.HasStatus(IDs.Status.Salvage))
+                {
+                    PlayerResources.CastActionDelayed(IDs.Actions.Salvage, ActionType.Action);
+                }
+                if (PlayerResources.HasStatus(IDs.Status.CollectorsGlove))
+                {
+                    PlayerResources.CastActionDelayed(IDs.Actions.Collect, ActionType.Action);
+                }
+            }
+            //CheckState();
+        
             CheckMaxTimeLimit();
+        }
 
         if (_lastState == state)
             return;
 
         _lastState = state;
+
+        if (!PlayerResources.ActionAvailable(IDs.Actions.Hook) && state != FishingState.PoleReady && state != FishingState.Quit && Cfg.AutoCastsCfg.EnableAnimationSkip)
+        {
+            PlayerResources.CastActionDelayed(IDs.Actions.Collect, ActionType.Action);
+        }
 
         switch (state)
         {
