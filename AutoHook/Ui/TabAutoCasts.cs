@@ -279,6 +279,20 @@ internal class TabAutoCasts : TabBaseConfig
             Cfg.EnableAnimationSkip = enabled;
             Service.Configuration.Save();
         }
+        if (enabled)
+        {
+            ImGui.Indent();
+            DrawExtraOptionsAnimationSkip();
+            ImGui.Unindent();
+        }
+    }
+
+    private void DrawExtraOptionsAnimationSkip()
+    {
+        if (DrawUtil.Checkbox(UIStrings.Keep_Collectable, ref Cfg.KeepCollectable, UIStrings.Keep_Collectable_desc))
+        { }
+        //if (DrawUtil.Checkbox(UIStrings.Salvage, ref Cfg.AutoSalvage, UIStrings.Salvage_Skip))
+        //{ }
     }
 
 

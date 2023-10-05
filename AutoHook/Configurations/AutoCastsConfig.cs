@@ -2,6 +2,7 @@ using AutoHook.Classes;
 using AutoHook.Data;
 using AutoHook.Utils;
 using FFXIVClientStructs.FFXIV.Client.Game;
+using System.Threading;
 
 namespace AutoHook.Configurations;
 
@@ -18,6 +19,7 @@ public class AutoCastsConfig
     public bool EnableMakeshiftPatience = false;
 
     public bool EnableAnimationSkip = false;
+    public bool KeepCollectable = false;
     public bool EnableChumAnimationSkip = false;
 
     public bool DontCancelMooch = true;

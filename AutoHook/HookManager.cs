@@ -225,10 +225,12 @@ public class HookingManager : IDisposable
                 {
                     PlayerResources.CastActionDelayed(IDs.Actions.Salvage, ActionType.Action);
                 }
-                if (PlayerResources.HasStatus(IDs.Status.CollectorsGlove))
+
+                if (PlayerResources.HasStatus(IDs.Status.CollectorsGlove) && !Cfg.AutoCastsCfg.KeepCollectable)
                 {
                     PlayerResources.CastActionDelayed(IDs.Actions.Collect, ActionType.Action);
                 }
+
             }
             //CheckState();
         
@@ -253,6 +255,10 @@ public class HookingManager : IDisposable
                 break;
             case FishingState.Bite:
                 if (_lastStep != CatchSteps.FishBit) OnBite();
+                if (PlayerResources.HasStatus(IDs.Status.CollectorsGlove))
+                {
+                    PlayerResources.CastActionDelayed(IDs.Actions.Collect, ActionType.Action);
+                }
                 break;
             case FishingState.Quit:
                 OnFishingStop();

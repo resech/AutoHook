@@ -914,6 +914,24 @@ namespace AutoHook.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Keep Collectables.
+        /// </summary>
+        internal static string Keep_Collectable {
+            get {
+                return ResourceManager.GetString("Keep_Collectable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keep collectables by removing the Collect buff later..
+        /// </summary>
+        internal static string Keep_Collectable_desc {
+            get {
+                return ResourceManager.GetString("Keep_Collectable_desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Let the fish escape if GP is below the required.
         /// </summary>
         internal static string LetTheFishEscape {
@@ -1002,7 +1020,7 @@ namespace AutoHook.Resources.Localization {
                 return ResourceManager.GetString("OnlyUseWhenFisherSIntutionIsActive", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Only use when Identical Cast is active.
         /// </summary>
