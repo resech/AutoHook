@@ -228,6 +228,10 @@ public class HookingManager : IDisposable
             {
                 PlayerResources.CastActionDelayed(IDs.Actions.Collect, ActionType.Action);
             }
+            else if (Cfg.AutoCastsCfg.KeepCollectable && !PlayerResources.HasStatus(IDs.Status.CollectorsGlove) && Cfg.AutoCastsCfg.EnableAnimationSkip)
+            {
+                PlayerResources.CastActionDelayed(IDs.Actions.Collect, ActionType.Action);
+            }
 
             //CheckState();
         
