@@ -168,7 +168,7 @@ public class HookingManager : IDisposable
             {
                 _lastStep = CatchSteps.Quitting;
             }
-        }
+        } 
 
         // Check if should stop with another bait/fish
         var customMoochCfg = GetPreset(LastCatch);
@@ -183,7 +183,7 @@ public class HookingManager : IDisposable
             {
                 _lastStep = CatchSteps.Quitting;
             }
-        }
+        } 
     }
 
 
@@ -200,6 +200,15 @@ public class HookingManager : IDisposable
             state = FishingState.Quit;
         }
 
+        if (_selectedPreset != null && _selectedPreset.StopAfterAnglersArt)
+        {
+            bool hasStacks = PlayerResources.HasAnglersArtStacks(_selectedPreset.StopAfterAnglersArtLimit);
+
+        if (hasStacks)
+            {
+                state = FishingState.Quit;
+            }
+        }
         //CheckState();
 
         
